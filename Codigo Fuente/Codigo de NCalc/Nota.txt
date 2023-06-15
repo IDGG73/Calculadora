@@ -1,5 +1,0 @@
-Si bien esto también está incluido en la carpeta "Codigo de la App", ahí todo se encuentra comprimido y encriptado en un archivo "NCalc.dll"
-
-Este es el código "crudo" de la librería. Sin compresión.
-
-Esto sí puede leerse y editarse.
