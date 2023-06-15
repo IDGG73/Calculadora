@@ -1,0 +1,36 @@
+﻿// ---------------------------------------------------------------------------- 
+// Author: Ryan Hipple
+// Date:   05/01/2018
+// ----------------------------------------------------------------------------
+
+using System;
+using UnityEngine;
+
+namespace RoboRyanTron.SearchableEnum
+{
+    /// <summary>
+    /// Put this attribute on a public (or SerialzeField) enum in a
+    /// MonoBehaviour or ScriptableObject to get an improved enum selector
+    /// popup. The enum list is scrollable and can be filtered by typing.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Field)]
+    public class SearchableEnumAttribute : PropertyAttribute
+    {
+        public string[] options;
+
+        public SearchableEnumAttribute(string[] options = null)
+        {
+            this.options = options;
+        }
+
+        public SearchableEnumAttribute(Type type, string methodName)
+        {
+            var method = type.GetMethod(methodName);
+
+            if (method != null)
+                options = method.Invoke(null, null) as string[];
+            else
+                Debug.LogError($"Method '{methodName}' does not exist for '{type}'");
+        }
+    }
+}
