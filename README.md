@@ -1,13 +1,20 @@
-# Calculadora | Nancy Ximena Gaytán Guerra
+﻿# Calculadora | Nancy Ximena Gaytán Guerra
 
 ¡Hola! Este es mi proyecto de Matemáticas, una calculadora sencilla pero eficiente. La aplicación está hecha utilizando el motor de videojuegos `Unity`, el lenguaje de programación `C#`,  la librería [`NCalc`](https://github.com/ncalc/ncalc) y la ayuda de mi hermano.
 
+### Índice
+* [Características de la Calculadora](#características-de-la-calculadora)
+* [¿Por qué Unity?](#por-qué-unity)
+* [¿Qué es NCalc?](#qué-es-ncalc)
+* [Funcionamiento de las Fórmulas](#funcionamiento-de-las-fórmulas)
+* [Atajos de Teclado](#atajos-de-teclado)
+
 ## Características de la Calculadora
-Algunas de las características que diferencian a esta calculadora del resto en esta clase son (probablemente):
+Algunas de las características de esta calculadora:
 * **Historial:** Muestra todas las operaciones que se han realizado en la sesión actual.
 * **Interfaz:** Las funciones de la calculadora, operadores y números se distinguen por colores, facilitando su lectura.
 * **Audio:** Los botones en pantalla hacen ruido de un teclado mécanico. Puede desactivarse.
-* **Controles:** La mayoría de funciones básicas no necesitan de un mouse y pueden ejecutarse con el teclado. [Ver más](#controles).
+* **Controles:** La mayoría de funciones básicas no necesitan de un mouse y pueden ejecutarse con el teclado. [Ver más](#atajos-de-teclado).
 * **Responsivo:** El contenido se ajusta al tamaño y forma de la ventana.
 * **Grados y Radianes:** Utiliza la unidad que prefieras para las funciones de Seno, Coseno y Tangente.
 * **Botón π:** Otorga acceso rápido al valor de `π (Pi)`, no es necesario escribirlo manualmente.
@@ -44,9 +51,33 @@ También tuvimos que agregar soporte para `° (Grados)` en las funciones de `Sen
 
 Y por último cambiamos la sintaxis de los exponentes; originalmente sólo se admitía el uso de `Pow(x, y)` (donde `x` es el número base y `y` es la potencia). Cambiamos eso por algo más entendible: `x^y`.
 
-***
+## Funcionamiento de las Fórmulas
 
-## Controles
+Aunque NCalc es muy útil para operaciones, no puede resolver las fórmulas por sí mismo, por lo que eso tenemos que manejarlo nosotros.
+
+Cada fórmula cuenta con variables a las que debes asignarles un valor, algunas necesitan 2 variables mientras que otras piden 3 variables.
+
+En el menú `Parámetros` de la aplicación es donde el usuario introduce el valor de cada variable. Dependiendo de qué formula escogiste en el menú anterior, se mostrará en pantalla la cantidad de variables que necesita y sus nombres.
+
+Una vez asignados los valores, se crea una lista de ellos y se envía al método `Calculator.CalculateFormula(Formulas, FormulaArgumentBinder[])`. Dentro de este método se llevan acabo los siguientes pasos:
+
+> **Nota:** Dentro del código, las variables de las fórmulas son referidas por el nombre `Argumentos`
+
+1. **Empty Arguments (Argumentos Vacíos):** Revisa que los argumentos dados por el usuario NO estén vacíos.
+2. **Arguments Count (Conteo de Argumentos):** Revisa que la cantidad de argumentos dados por el sistema sea la misma cantidad de argumentos que pide la fórmula.
+3. **Arguments Evaluation (Evaluación de Argumentos):** Ya que el usuario puede introducir una operación matemática como argumento, necesitamos resolverla *antes* de pasarla a la fórmula.
+	* Tomamos la operación matemática de la lista de Argumentos con `args[i].Argument`
+	* Creamos una lista de tipo `CalculatorResult` llamada `argsResults` a donde enviaremos los resultados de las operaciones de cada argumento.
+	* Ahora, con el método `Calculator.Evaluate()` podemos resolver la operación y agregar su resultado a la lista `argsResults`. Creamos un nuevo `CalculatorResult` llamado `cR` y usamos `cR = Evaluate(args[i].argument);`
+	* El resultado ahora está guardado en la variable `cR`, si `cR.success` es `verdadero` significa que la operación se completó exitosamente, así que ya podemos añadir el resultado a la lista `argsResults` y repetir el proceso por cada argumento que necesita la fórmula.
+4. **Evaluate Formula (Evaluar Formula):** Si los pasos anteriores son exitosos, ahora sí podemos calcular la fórmula con los argumentos asignados.
+	* Usamos un `switch()` para dividir el código en distintas posibilidades. Necesitamos hacer esto porque cada fórmula debe llevarnos a un algoritmo distinto.
+	* Una vez en la fórmula que corresponde, creamos un `CalculatorResult` de nombre `cR`.
+	> **Nota:** Estamos en otra parte del código, este `cR` no es el mismo `cR` que usamos en el paso `Arguments Evaluation`. El `cR` del paso anterior ya fue desechado automáticamente en el momento que salimos de ese paso.
+	* Y usamos `cR = Evaluate();`. Dentro de los paréntesis de `Evaluate()` ponemos el algoritmo de la fórmula correspondiente junto con sus argumentos. Los argumentos ya resueltos se acceden con `argsResults[i]` donde `i` es el número del argumento que queremos obtener.
+	* En el caso de la *Fórmula General* no podemos usar el punto anterior, porque `Evaluate()` sólo devuelve un resultado de tipo `CalculatorResult`, mientras que la *Fórmula General* puede devolver dos resultados y los manda en un tipo `string`. Para esta fórmula reemplazamos `cR = Evaluate();` por `string result = QuadraticFormula();` dentro de los paréntesis introducimos los argumentos `a, b y c`
+
+## Atajos de Teclado
 
 Las funciones más básicas (como escribir números y signos) pueden ejecutarse mediante atajos en el teclado. Funciones más complejas o muy específicas (como `Seno`, `Coseno`, `Tangente`, `Raíz Cuadrada` y `π (Pi)`) necesitan que uses el mouse para hacer clic en los botones de la pantalla.
 
@@ -59,7 +90,9 @@ Estos son algunos de los atajos de teclado disponibles para la aplicación:
 | `TAB`, `Flecha Izquierda`| Abrir y cerrar la Bandeja de Funciones Avanzadas |
 | `Flecha Derecha` | Cerrar la Bandeja de Funciones Avanzadas |
 | `CTRL`, `Menu Contextual`, `Menu`, `Context Menu` | Abrir y cerrar el historial |
+| `F` | Abrir Menú de Fórmulas |
 | `S`, `M` | Activar y desactivar ruido de tecleo |
-| `Esc`, `Del`  , `Supr`, `Suprimir` | Borrar todo lo que escribiste |
-| `Retroceso`, `Backspace` | Borrar el último carácter escrito |
+| `ESC`, `Escape` | Volver al menú anterior |
+| `C`, `Del`  , `Supr`, `Suprimir` | Borrar todo lo que escribiste |
+| `Retroceso`, `Backspace`, `Clic Derecho` | Borrar el último carácter escrito |
 | `Enter`, `Intro`, `Return` | Calcular |

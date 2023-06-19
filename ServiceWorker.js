@@ -1,4 +1,4 @@
-const cacheName = "Nancy Ximena Gaytán Guerra-Calculadora-1.0.0";
+const cacheName = "Nancy Ximena Gaytán Guerra-Calculadora-1.2.1";
 const contentToCache = [
     "Build/Calc PWA.loader.js",
     "Build/Calc PWA.framework.js",
