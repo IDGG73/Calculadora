@@ -64,19 +64,24 @@ Una vez asignados los valores, se crea una lista de ellos y se envía al método
 
 > **Nota:** Dentro del código, las variables de las fórmulas son referidas por el nombre `Argumentos`
 
-1. **Empty Arguments (Argumentos Vacíos):** Revisa que los argumentos dados por el usuario NO estén vacíos.
-2. **Arguments Count (Conteo de Argumentos):** Revisa que la cantidad de argumentos dados por el sistema sea la misma cantidad de argumentos que pide la fórmula.
-3. **Arguments Evaluation (Evaluación de Argumentos):** Ya que el usuario puede introducir una operación matemática como argumento, necesitamos resolverla *antes* de pasarla a la fórmula.
+1. **[Empty Arguments](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL320C32-L320C32) (Argumentos Vacíos):** Revisa que los argumentos dados por el usuario NO estén vacíos.
+2. **[Arguments Count](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL330C9-L330C9) (Conteo de Argumentos):** Revisa que la cantidad de argumentos dados por el sistema sea la misma cantidad de argumentos que pide la fórmula.
+3. **[Arguments Evaluation](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL346C9-L346C9) (Evaluación de Argumentos):** Ya que el usuario puede introducir una operación matemática como argumento, necesitamos resolverla *antes* de pasarla a la fórmula.
 	* Tomamos la operación matemática de la lista de Argumentos con `args[i].Argument`
 	* Creamos una lista de tipo `CalculatorResult` llamada `argsResults` a donde enviaremos los resultados de las operaciones de cada argumento.
 	* Ahora, con el método `Calculator.Evaluate()` podemos resolver la operación y agregar su resultado a la lista `argsResults`. Creamos un nuevo `CalculatorResult` llamado `cR` y usamos `cR = Evaluate(args[i].argument);`
 	* El resultado ahora está guardado en la variable `cR`, si `cR.success` es `verdadero` significa que la operación se completó exitosamente, así que ya podemos añadir el resultado a la lista `argsResults` y repetir el proceso por cada argumento que necesita la fórmula.
-4. **Evaluate Formula (Evaluar Formula):** Si los pasos anteriores son exitosos, ahora sí podemos calcular la fórmula con los argumentos asignados.
+4. **[Evaluate Formula](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL369C9-L369C9) (Evaluar Formula):** Si los pasos anteriores son exitosos, ahora sí podemos calcular la fórmula con los argumentos asignados.
 	* Usamos un `switch()` para dividir el código en distintas posibilidades. Necesitamos hacer esto porque cada fórmula debe llevarnos a un algoritmo distinto.
 	* Una vez en la fórmula que corresponde, creamos un `CalculatorResult` de nombre `cR`.
 	> **Nota:** Estamos en otra parte del código, este `cR` no es el mismo `cR` que usamos en el paso `Arguments Evaluation`. El `cR` del paso anterior ya fue desechado automáticamente en el momento que salimos de ese paso.
 	* Y usamos `cR = Evaluate();`. Dentro de los paréntesis de `Evaluate()` ponemos el algoritmo de la fórmula correspondiente junto con sus argumentos. Los argumentos ya resueltos se acceden con `argsResults[i]` donde `i` es el número del argumento que queremos obtener.
 	* En el caso de la *Fórmula General* no podemos usar el punto anterior, porque `Evaluate()` sólo devuelve un resultado de tipo `CalculatorResult`, mientras que la *Fórmula General* puede devolver dos resultados y los manda en un tipo `string`. Para esta fórmula reemplazamos `cR = Evaluate();` por `string result = QuadraticFormula();` dentro de los paréntesis introducimos los argumentos `a, b y c`
+
+> La `Fórmula General` y la `Fórmula de Semejanza` funcionan de forma distinta a las demás y necesitaron de métodos completamente distintos. Puede revisar el código correspondiente a través de los siguientes enlaces:
+> * [Quadratic Formula](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL451C9-L451C9)
+> * [Similarity Formula](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL486C9-L486C9)
+> * [Decimal To Fraction](https://github.com/IDGG73/Calculadora/blob/af338753cfc3a748eb3bb92b5d1fa9f2d27c0862/Codigo%20Fuente/Codigo%20de%20la%20App/Scripts/Calculator.cs#LL669C5-L669C5)
 
 ## Atajos de Teclado
 
