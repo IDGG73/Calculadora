@@ -1,5 +1,9 @@
 ﻿# Calculadora | Nancy Ximena Gaytán Guerra
 
+> **NOTA 1:** Esta calculadora ha sido diseñada para pantallas verticales. Para una mejor experiencia, ajuste la ventana de su navegador para que simule la forma de una pantalla de teléfono.
+
+> **NOTA 2:** Para acceder a las fórmulas, presione el **botón verde** que dice **"Fórmulas"** dentro de la aplicación.
+
 ¡Hola! Este es mi proyecto de Matemáticas, una calculadora sencilla pero eficiente. La aplicación está hecha utilizando el motor de videojuegos `Unity`, el lenguaje de programación `C#`,  la librería [`NCalc`](https://github.com/ncalc/ncalc) y la ayuda de mi hermano.
 
 ### Índice
