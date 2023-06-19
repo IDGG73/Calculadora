@@ -20,6 +20,7 @@ Algunas de las características de esta calculadora:
 * **Botón π:** Otorga acceso rápido al valor de `π (Pi)`, no es necesario escribirlo manualmente.
 * **Código Abierto:** El código de esta aplicación está disponible para todo público. Puede descargarse y editarse.
 * **Online:** La aplicación puede utilizarse sin descargar nada. Sólo se necesita una conexión a internet.
+* **Offline:** Si lo prefieres (y si tu navegador te lo permite) puedes *instalar* la aplicación y usarla sin conexión a internet. En teléfono también debería ser posible, aunque no lo hemos probado.
 
 ## ¿Por qué Unity?
 He utilizado el motor de videojuegos `Unity` por su facilidad de uso, capacidad de crear las aplicaciones para distintas plataformas y sus herramientas para creación de interfaces rápidas e intuitivas. En general, es mucho más rápido crear algo con `Unity` que con `Visual Studio` y `XAML`.
@@ -55,7 +56,7 @@ Y por último cambiamos la sintaxis de los exponentes; originalmente sólo se ad
 
 Aunque NCalc es muy útil para operaciones, no puede resolver las fórmulas por sí mismo, por lo que eso tenemos que manejarlo nosotros.
 
-Cada fórmula cuenta con variables a las que debes asignarles un valor, algunas necesitan 2 variables mientras que otras piden 3 variables.
+Cada fórmula cuenta con variables a las que debes asignarles un valor, algunas necesitan 2 variables, otras sólo 3 y algunas piden hasta 6.
 
 En el menú `Parámetros` de la aplicación es donde el usuario introduce el valor de cada variable. Dependiendo de qué formula escogiste en el menú anterior, se mostrará en pantalla la cantidad de variables que necesita y sus nombres.
 

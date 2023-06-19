@@ -1,9 +1,9 @@
 const cacheName = "Nancy Ximena Gaytán Guerra-Calculadora-1.2.1";
 const contentToCache = [
-    "Build/Calc PWA.loader.js",
-    "Build/Calc PWA.framework.js",
-    "Build/Calc PWA.data",
-    "Build/Calc PWA.wasm",
+    "Build/CalcPWA.loader.js",
+    "Build/CalcPWA.framework.js",
+    "Build/CalcPWA.data",
+    "Build/CalcPWA.wasm",
     "TemplateData/style.css"
 
 ];

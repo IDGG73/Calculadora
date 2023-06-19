@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Calculadora | Nancy Ximena Gaytán Guerra</title>
+    <title>Unity WebGL Player | Calculadora</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
@@ -57,11 +57,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Calc PWA.loader.js";
+      var loaderUrl = buildUrl + "/CalcPWA.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Calc PWA.data",
-        frameworkUrl: buildUrl + "/Calc PWA.framework.js",
-        codeUrl: buildUrl + "/Calc PWA.wasm",
+        dataUrl: buildUrl + "/CalcPWA.data",
+        frameworkUrl: buildUrl + "/CalcPWA.framework.js",
+        codeUrl: buildUrl + "/CalcPWA.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Nancy Ximena Gaytán Guerra",
         productName: "Calculadora",
@@ -92,6 +92,7 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
+		  unityInstance.SetFullscreen(0);
           loadingBar.style.display = "none";
         }).catch((message) => {
           alert(message);
